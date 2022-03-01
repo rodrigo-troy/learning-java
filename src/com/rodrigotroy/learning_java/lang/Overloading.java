@@ -1,4 +1,4 @@
-package com.rodrigotroy.learning_java.sort;
+package com.rodrigotroy.learning_java.lang;
 
 /**
  * Created with IntelliJ IDEA.
