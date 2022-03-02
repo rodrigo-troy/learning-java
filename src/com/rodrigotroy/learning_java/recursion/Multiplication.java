@@ -7,12 +7,13 @@ package com.rodrigotroy.learning_java.recursion;
  * Date: 24-02-22
  * Time: 17:57
  */
-public class Example1 {
+public class Multiplication {
     public static long method(long a,
                               long b) {
         if (b == 0) {
             return b;
         }
+
         return a + method(a,
                           b - 1);
     }
