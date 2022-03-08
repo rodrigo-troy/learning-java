@@ -48,7 +48,7 @@ public class Node {
 
     public List<Node> getChildren() {
         if (children == null) {
-            children = new ArrayList<Node>();
+            children = new ArrayList<>();
         }
 
         return children;
@@ -60,5 +60,15 @@ public class Node {
 
     public void addChild(Node newNode) {
         this.getChildren().add(newNode);
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+               "noOfBones=" + noOfBones +
+               ", isMaxPlayer=" + isMaxPlayer +
+               ", score=" + score +
+               ", #children=" + this.getChildren().size() +
+               '}';
     }
 }

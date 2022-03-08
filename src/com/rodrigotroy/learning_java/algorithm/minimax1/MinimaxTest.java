@@ -15,15 +15,15 @@ public class MinimaxTest {
     @Test
     public void test() {
         MiniMax miniMax = new MiniMax();
-        miniMax.constructTree(6);
+        miniMax.constructTree(8);
 
         boolean result = miniMax.checkWin();
 
         Assert.assertTrue(result);
 
-        miniMax.constructTree(8);
+        /*miniMax.constructTree(8);
         result = miniMax.checkWin();
 
-        Assert.assertFalse(result);
+        Assert.assertFalse(result);*/
     }
 }
