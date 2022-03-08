@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  * Time: 22:13
  */
 
-public class givenMiniMax_whenCheckWin_thenComputeOptimal {
+public class MinimaxTest {
     @Test
     public void test() {
         MiniMax miniMax = new MiniMax();

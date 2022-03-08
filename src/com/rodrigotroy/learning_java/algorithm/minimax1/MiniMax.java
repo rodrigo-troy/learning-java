@@ -3,6 +3,7 @@ package com.rodrigotroy.learning_java.algorithm.minimax1;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,27 +27,28 @@ public class MiniMax {
         List<Integer> listOfPossibleHeaps = GameOfBones.getPossibleStates(parentNode.getNoOfBones());
         boolean isChildMaxPlayer = !parentNode.isMaxPlayer();
 
-        listOfPossibleHeaps.forEach(n -> {
+        for (Integer n : listOfPossibleHeaps) {
             Node newNode = new Node(n,
                                     isChildMaxPlayer);
             parentNode.addChild(newNode);
+
             if (newNode.getNoOfBones() > 0) {
                 constructTree(newNode);
             }
-        });
+        }
     }
 
     private void checkWin(Node node) {
         List<Node> children = node.getChildren();
         boolean isMaxPlayer = node.isMaxPlayer();
 
-        children.forEach(child -> {
+        for (Node child : children) {
             if (child.getNoOfBones() == 0) {
                 child.setScore(isMaxPlayer ? 1 : -1);
             } else {
                 checkWin(child);
             }
-        });
+        }
 
         Node bestChild = findBestChild(isMaxPlayer,
                                        children);
@@ -62,7 +64,19 @@ public class MiniMax {
     private Node findBestChild(boolean isMaxPlayer,
                                List<Node> children) {
         Comparator<Node> byScoreComparator = Comparator.comparing(Node::getScore);
-        return children.stream().max(isMaxPlayer ? byScoreComparator : byScoreComparator.reversed()).orElseThrow(NoSuchElementException::new);
+        boolean seen = false;
+        Node best = null;
+        Comparator<Node> comparator = isMaxPlayer ? byScoreComparator : byScoreComparator.reversed();
+
+        for (Node child : children) {
+            if (!seen || comparator.compare(child,
+                                            best) > 0) {
+                seen = true;
+                best = child;
+            }
+        }
+
+        return (seen ? Optional.of(best) : Optional.<Node>empty()).orElseThrow(NoSuchElementException::new);
     }
 
 }

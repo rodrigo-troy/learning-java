@@ -1,8 +1,7 @@
 package com.rodrigotroy.learning_java.algorithm.minimax1;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,11 +12,19 @@ import java.util.stream.IntStream;
  */
 public class GameOfBones {
     static List<Integer> getPossibleStates(int noOfBonesInHeap) {
-        return IntStream.rangeClosed(1,
-                                     3)
-                        .boxed()
-                        .map(i -> noOfBonesInHeap - i)
-                        .filter(newHeapCount -> newHeapCount >= 0)
-                        .collect(Collectors.toList());
+        System.out.printf("noOfBonesInHeap: %d\n",
+                          noOfBonesInHeap);
+        List<Integer> list = new ArrayList<>();
+
+        for (int i = 1; i <= 3; i++) {
+            int newHeapCount = noOfBonesInHeap - i;
+
+            if (newHeapCount >= 0) {
+                list.add(newHeapCount);
+            }
+        }
+
+        System.out.println(list);
+        return list;
     }
 }
