@@ -1,4 +1,4 @@
-package com.rodrigotroy.learning_java.sort;
+package com.rodrigotroy.learning_java.scanner;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Date: 16-03-22
  * Time: 15:07
  */
-public class SortArray {
+public class IsSort {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();
