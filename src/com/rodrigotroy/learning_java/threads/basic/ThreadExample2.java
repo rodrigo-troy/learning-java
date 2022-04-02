@@ -13,6 +13,7 @@ public class ThreadExample2 {
     private static final Logger LOG = Logger.getLogger("ThreadExample2");
 
     public static void main(String[] args) {
+        LOG.info("Start...");
         MyThread thread = new MyThread();
         thread.start();
     }
