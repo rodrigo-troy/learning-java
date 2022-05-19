@@ -10,20 +10,41 @@ import java.util.Scanner;
  * Time: 19:05
  */
 public class TakeOutSimulator {
-    private Customer customer;
-    private FoodMenu menu;
-    private Scanner input;
+    private final Customer customer;
+    private final FoodMenu menu;
+    private final Scanner input;
 
     public TakeOutSimulator(Customer customer,
-                            FoodMenu menu,
                             Scanner input) {
         this.customer = customer;
-        this.menu = menu;
+        this.menu = new FoodMenu();
         this.input = input;
     }
 
     private <T> T getOutputOnIntInput(String userInputPrompt,
-                                      IntUserInputRetriever intUserInputRetriever) {
+                                      IntUserInputRetriever<T> intUserInputRetriever) {
+        while (input.hasNext()) {
+            System.out.println(userInputPrompt);
+
+            if (input.hasNextInt()) {
+                int selection = 0;
+
+                try {
+                    selection = input.nextInt();
+                    return intUserInputRetriever.produceOutputOnIntUserInput(selection);
+                } catch (Exception e) {
+                    System.out.printf("%d is not a valid input. Try Again!",
+                                      selection);
+                }
+            } else {
+                System.out.println("Input needs to be an `int` type.");
+            }
+        }
+
         return null;
+    }
+
+    public boolean shouldSimulate() {
+        return false;
     }
 }
