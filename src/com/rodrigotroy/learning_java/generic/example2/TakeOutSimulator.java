@@ -23,25 +23,20 @@ public class TakeOutSimulator {
 
     private <T> T getOutputOnIntInput(String userInputPrompt,
                                       IntUserInputRetriever<T> intUserInputRetriever) {
-        while (input.hasNext()) {
+        Integer selection = null;
+
+        while (selection == null) {
             System.out.println(userInputPrompt);
 
             if (input.hasNextInt()) {
-                int selection = 0;
-
-                try {
-                    selection = input.nextInt();
-                    return intUserInputRetriever.produceOutputOnIntUserInput(selection);
-                } catch (Exception e) {
-                    System.out.printf("%d is not a valid input. Try Again!",
-                                      selection);
-                }
+                selection = input.nextInt();
             } else {
                 System.out.println("Input needs to be an `int` type.");
+                input.next();
             }
         }
 
-        return null;
+        return intUserInputRetriever.produceOutputOnIntUserInput(selection);
     }
 
     public Boolean shouldSimulate() {
@@ -84,7 +79,7 @@ public class TakeOutSimulator {
 
         customer.setMoney(customer.getMoney() - shoppingBag.getTotalPrice());
 
-        System.out.printf("Your remaining money: $%d",
+        System.out.printf("Your remaining money: $%d\n",
                           customer.getMoney());
         System.out.println("Thank you and enjoy your food!");
     }
@@ -92,27 +87,38 @@ public class TakeOutSimulator {
     public void takeOutPrompt() {
         ShoppingBag<Food> shoppingBag = new ShoppingBag<>();
 
-        while (isStillOrderingFood()) {
-            int customerMoneyLeft = customer.getMoney();
+        int customerMoneyLeft = customer.getMoney();
+        System.out.printf("You have $%d left to spend\n\n",
+                          customerMoneyLeft);
+
+        do {
+            System.out.println("Today's Menu Options!");
+            Food selection = this.getMenuSelection();
+
+            customerMoneyLeft -= selection.getPrice();
 
             System.out.printf("You have $%d left to spend\n\n",
                               customerMoneyLeft);
 
-            System.out.println("Today's Menu Options!");
-            Food selection = this.getMenuSelection();
-            shoppingBag.addItem(selection);
-        }
+            if (customerMoneyLeft >= 0) {
+                shoppingBag.addItem(selection);
+            }
+
+            if (customerMoneyLeft <= 0) {
+                break;
+            }
+        } while (isStillOrderingFood());
 
         this.checkoutCustomer(shoppingBag);
     }
 
     public void startTakeOutSimulator() {
         System.out.println("Hello, welcome to my restaurant!");
-        System.out.printf("Welcome %s",
+        System.out.printf("Welcome %s\n",
                           customer.getName());
 
-        while (this.shouldSimulate()) {
+        do {
             this.takeOutPrompt();
-        }
+        } while (this.shouldSimulate());
     }
 }

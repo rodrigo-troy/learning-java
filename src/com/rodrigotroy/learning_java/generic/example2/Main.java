@@ -18,7 +18,8 @@ public class Main {
 
         System.out.println("Enter an amount of money:");
         while (!scanner.hasNextInt()) {
-            System.out.println("Enter a valid value");
+            scanner.next();
+            System.out.println("Enter a valid amount of money:");
         }
         int money = scanner.nextInt();
 
