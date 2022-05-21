@@ -44,7 +44,75 @@ public class TakeOutSimulator {
         return null;
     }
 
-    public boolean shouldSimulate() {
-        return false;
+    public Boolean shouldSimulate() {
+        String userPrompt = "Enter 1 to CONTINUE simulation or 0 to EXIT ";
+
+        IntUserInputRetriever<Boolean> retriever = (int selection) -> {
+            if (selection != 1 && selection != 0) {
+                throw new IllegalArgumentException();
+            }
+
+            return selection == 1 && customer.getMoney() > 0;
+        };
+
+        return this.getOutputOnIntInput(userPrompt,
+                                        retriever);
+    }
+
+    public Boolean isStillOrderingFood() {
+        String userPrompt = "Enter 1 to CONTINUE shopping or 0 to CHECKOUT:";
+
+        IntUserInputRetriever<Boolean> retriever = (int selection) -> {
+            if (selection != 1 && selection != 0) {
+                throw new IllegalArgumentException();
+            }
+
+            return selection == 1;
+        };
+
+        return this.getOutputOnIntInput(userPrompt,
+                                        retriever);
+    }
+
+    public Food getMenuSelection() {
+        return this.getOutputOnIntInput(menu.toString(),
+                                        menu::getFood);
+    }
+
+    public void checkoutCustomer(ShoppingBag<Food> shoppingBag) {
+        System.out.println("Processing payment...");
+
+        customer.setMoney(customer.getMoney() - shoppingBag.getTotalPrice());
+
+        System.out.printf("Your remaining money: $%d",
+                          customer.getMoney());
+        System.out.println("Thank you and enjoy your food!");
+    }
+
+    public void takeOutPrompt() {
+        ShoppingBag<Food> shoppingBag = new ShoppingBag<>();
+
+        while (isStillOrderingFood()) {
+            int customerMoneyLeft = customer.getMoney();
+
+            System.out.printf("You have $%d left to spend\n\n",
+                              customerMoneyLeft);
+
+            System.out.println("Today's Menu Options!");
+            Food selection = this.getMenuSelection();
+            shoppingBag.addItem(selection);
+        }
+
+        this.checkoutCustomer(shoppingBag);
+    }
+
+    public void startTakeOutSimulator() {
+        System.out.println("Hello, welcome to my restaurant!");
+        System.out.printf("Welcome %s",
+                          customer.getName());
+
+        while (this.shouldSimulate()) {
+            this.takeOutPrompt();
+        }
     }
 }

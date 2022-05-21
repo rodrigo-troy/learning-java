@@ -9,7 +9,7 @@ package com.rodrigotroy.learning_java.generic.example2;
  */
 public class Customer {
     private final String name;
-    private final int money;
+    private int money;
 
     public Customer(String name,
                     int money) {
@@ -23,5 +23,9 @@ public class Customer {
 
     public int getMoney() {
         return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }
