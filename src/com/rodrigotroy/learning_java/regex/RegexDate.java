@@ -1,4 +1,4 @@
-package com.rodrigotroy.learning_java.scanner;
+package com.rodrigotroy.learning_java.regex;
 
 import java.util.Scanner;
 
