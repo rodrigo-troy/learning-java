@@ -25,7 +25,6 @@ public class Motorcycle implements Serializable {
     }
 
     public static void main(String[] args) throws
-                                           FileNotFoundException,
                                            IOException,
                                            ClassNotFoundException {
         Motorcycle toyota = new Motorcycle("Toyota",
