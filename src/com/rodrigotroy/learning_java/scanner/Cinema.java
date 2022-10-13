@@ -151,7 +151,7 @@ public class Cinema {
                               i);
         }
 
-        System.out.println("");
+        System.out.println();
 
         for (int r = 0; r < seatsArray.length; r++) {
             System.out.printf("%d",
@@ -162,7 +162,7 @@ public class Cinema {
                                   seatsArray[r][s]);
             }
 
-            System.out.println("");
+            System.out.println();
         }
     }
 

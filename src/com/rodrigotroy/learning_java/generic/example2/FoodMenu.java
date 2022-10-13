@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 18:53
  */
 public class FoodMenu {
-    private List<Food> menu;
+    private final List<Food> menu;
 
     public FoodMenu() {
         this.menu = new ArrayList<>();

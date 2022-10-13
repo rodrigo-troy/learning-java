@@ -10,8 +10,8 @@ import java.io.Serializable;
  * Time: 10:50
  */
 public class Entry {
-    private String data;
-    private int rank;
+    private final String data;
+    private final int rank;
 
     public Entry(String data,
                  int rank) {

@@ -8,8 +8,8 @@ package com.rodrigotroy.learning_java.serialization.example1;
  * Time: 17:44
  */
 public class Engine {
-    private double liters;
-    private int cylinders;
+    private final double liters;
+    private final int cylinders;
 
     public Engine(double liters,
                   int cylinders) {
